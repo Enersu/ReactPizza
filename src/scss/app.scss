@@ -28,12 +28,13 @@ body {
   &__items {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: space-evenly;
   }
 
   &__top {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
     justify-content: space-between;
   }
 }
@@ -44,7 +45,7 @@ body {
 
   &--cart {
     max-width: 820px;
-    margin: 90px auto;
+    margin: 20px auto;
     .content__title {
       margin: 0;
     }

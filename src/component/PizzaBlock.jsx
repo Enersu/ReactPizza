@@ -58,7 +58,7 @@ function PizzaBlock(props) {
               fill="white"
             />
           </svg>
-          <span>Добавить</span>
+          <span onClick={() => props.addPropduct(props.id)}>Добавить</span>
           <i>2</i>
         </div>
       </div>

@@ -9,11 +9,12 @@ function SortPopap(props) {
   React.useEffect(() => {
     document.addEventListener('click', handleOudsideClick);
   }, []);
-  const activeLable = props.items[activeItem];
+  const activeLable = props.items[activeItem].name;
   // activeLable - меняет категорию в заголовке попапа
 
   const onSelectItem = (index) => {
     setActiveItem(index);
+    props.onClickItem(index);
     setvisiblePopup(false);
   };
   // setActiveItem(index) - выбирает нужную категорию
@@ -59,12 +60,12 @@ function SortPopap(props) {
       {visiblePopup && (
         <div className="sort__popup">
           <ul>
-            {props.items.map((item, index) => (
+            {props.items.map((obj, index) => (
               <li
                 className={activeItem === index ? 'active' : ''}
                 onClick={() => onSelectItem(index)}
-                key={`${item}_${index}`}>
-                {item}
+                key={`${obj.type}_${obj.index}`}>
+                {obj.name}
               </li>
             ))}
           </ul>

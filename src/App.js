@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import Header from '../src/component/Header';
 import Cart from './pages/Cart';
 import Home from './pages/Home';
+import Context from './context';
 
 function App() {
   const [products, setProducts] = React.useState([]);
@@ -14,15 +15,17 @@ function App() {
       .then((result) => setProducts(result.pizzas));
   }, []);
   return (
-    <div className="wrapper">
-      <Header />
-      <div className="content">
-        <Route exact path="/" render={() => <Home items={products} />} />
-        {/* React router (вместо обычного компонента <Home />) */}
-        {/* Вариант ниже обычный, вариант с Home дял того, чтобы прокинуть props в компонент*/}
-        <Route exact path="/cart" component={Cart} />
+    <Context.Provider value={products}>
+      <div className="wrapper">
+        <Header />
+        <div className="content">
+          <Route exact path="/" render={() => <Home items={products} />} />
+          {/* React router (вместо обычного компонента <Home />) */}
+          {/* Вариант ниже обычный, вариант с Home дял того, чтобы прокинуть props в компонент*/}
+          <Route exact path="/cart" component={Cart} />
+        </div>
       </div>
-    </div>
+    </Context.Provider>
   );
 }
 
