@@ -1,11 +1,14 @@
 import React from 'react';
+import { CartContext } from '../CartContext';
 
 function PizzaBlock(props) {
+  const value = React.useContext(CartContext);
+  const cartItem = value.visible.cart;
+
   const availableTypes = ['тонкое', 'традиционное'];
   const availableSizes = [26, 30, 40];
   const [activeType, setactiveType] = React.useState(props.types[0]);
   const [activeSize, setactiveSize] = React.useState(props.sizes[0]);
-  // React #5 1.16.00 React.useState(props.types[0])
 
   const onSelectType = (index) => setactiveType(index);
   const onSelectSize = (index) => setactiveSize(index);
@@ -14,7 +17,6 @@ function PizzaBlock(props) {
     <div className="pizza-block">
       <img className="pizza-block__image" src={props.imageUrl} alt="Pizza" />
       <h4 className="pizza-block__title">{props.name}</h4>
-      {/* с помощью props.name поддтягиваем индивидуальное название из json */}
       <div className="pizza-block__selector">
         <ul>
           {availableTypes.map((type, index) => (
@@ -22,7 +24,6 @@ function PizzaBlock(props) {
               onClick={() => onSelectType(index)}
               className={`${activeType === index ? 'active' : ''} 
                 ${!props.types.includes(index) ? 'disabled' : ''}`}
-              //React #5 1.10.00 если в types нет index, то disabled
               key={`${type}_${index}`}>
               {type}
             </li>
@@ -34,7 +35,6 @@ function PizzaBlock(props) {
               onClick={() => onSelectSize(index)}
               className={`${activeSize === index ? 'active' : ''} 
               ${!props.sizes.includes(size) ? 'disabled' : ''}`}
-              //React #5 1.20.00 !props.sizes.includes(size) не понятно, почему в availableTypes работает index, а здесь size
               key={`${size}_${index}`}>
               {size} см.
             </li>
@@ -58,8 +58,11 @@ function PizzaBlock(props) {
               fill="white"
             />
           </svg>
-          <span onClick={() => props.addPropduct(props.id)}>Добавить</span>
-          <i>2</i>
+          <span onClick={() => value.addProductToCart(props.id)}>Добавить</span>
+          {cartItem.map((item) => {
+            <i>2</i>;
+            // дописать функцию, по которой будет изменяться количество выбираемого продукта в корзине
+          })}
         </div>
       </div>
     </div>

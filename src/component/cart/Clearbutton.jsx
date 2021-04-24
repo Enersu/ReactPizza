@@ -1,6 +1,10 @@
 import React from 'react';
+import { CartContext } from '../../CartContext';
 
 function Clearbutton() {
+  const value = React.useContext(CartContext);
+  // console.log(value);
+
   return (
     <div className="cart__clear">
       <svg
@@ -38,7 +42,7 @@ function Clearbutton() {
           strokeLinejoin="round"
         />
       </svg>
-      <span>Очистить корзину</span>
+      <span onClick={() => value.clearCart()}>Очистить корзину</span>
     </div>
   );
 }

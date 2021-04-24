@@ -1,27 +1,21 @@
 import React from 'react';
-import Context from '../../context';
-import Context2 from '../../context2';
 
-function CartItem() {
-  const products = React.useContext(Context);
-  const count = React.useContext(Context2);
-  console.log(products);
-  console.log(count);
+function CartItem(props) {
+  console.log(props);
+  const getCost = () => Math.floor(props.item.amount * props.product.price);
   return (
     <div className="cart__item">
       <div className="cart__item-img">
-        <img
-          className="pizza-block__image"
-          src="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
-          alt="Pizza"
-        />
+        <img className="pizza-block__image" src={props.product.imageUrl} alt="Pizza" />
       </div>
       <div className="cart__item-info">
-        <h3>Сырный цыпленок</h3>
+        <h3>{props.product.name}</h3>
         <p>тонкое тесто, 26 см.</p>
       </div>
       <div className="cart__item-count">
-        <div className="button button--outline button--circle cart__item-count-minus">
+        <div
+          onClick={() => props.value.reduceAmount(props.product.id)}
+          className="button button--outline button--circle cart__item-count-minus">
           <svg
             width="10"
             height="10"
@@ -38,8 +32,10 @@ function CartItem() {
             />
           </svg>
         </div>
-        <b>2</b>
-        <div className="button button--outline button--circle cart__item-count-plus">
+        <b>{props.item.amount}</b>
+        <div
+          onClick={() => props.value.addAmount(props.product.id)}
+          className="button button--outline button--circle cart__item-count-plus">
           <svg
             width="10"
             height="10"
@@ -58,10 +54,12 @@ function CartItem() {
         </div>
       </div>
       <div className="cart__item-price">
-        <b>770 ₽</b>
+        <b>{getCost()}</b>
       </div>
       <div className="cart__item-remove">
-        <div className="button button--outline button--circle">
+        <div
+          onClick={() => props.value.clearProduct(props.product.id)}
+          className="button button--outline button--circle">
           <svg
             width="10"
             height="10"

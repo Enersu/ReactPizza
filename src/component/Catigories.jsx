@@ -12,9 +12,6 @@ const Catigories = (props) => {
   return (
     <div className="categories">
       <ul>
-        {/* <li className={activeItem === null ? 'active' : ''} onClick={() => setActiveItem(null)}>
-          Все
-        </li> */}
         {props.items.map((item, index) => (
           <li
             className={activeItem === index ? 'active' : ''}
